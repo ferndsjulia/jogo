@@ -12,7 +12,7 @@ var milis := Relógio.milisegundos
 var milis_c := Relógio.milisegundos
 var pety := 356
 var velocidade := 0
-
+var vivo := verdadeiro
 
 desenhe()
   pet[index].desenhe(50, pety, 2)
@@ -32,27 +32,30 @@ desenhe()
   fim
 fim
 
-
 atualize()
-  se Relógio.milisegundos > milis_c + 20 então
-    se px > 650 então
-      px := 0
-    senão
-      px := px + 5
+  se vivo então
+    se Relógio.milisegundos > milis_c + 20 então
+      se px > 650 então
+        px := 0
+      senão
+        px := px + 5
+      fim
+      milis_c := Relógio.milisegundos
     fim
-    milis_c := Relógio.milisegundos
-  fim
-  se teclado.TECLA_ESPAÇO então
-    velocidade := 15
-    pety := 355
-  fim
-  se pety < 356 então
-    pety := pety - velocidade
-    velocidade := velocidade - 1
-  fim
-  se pety > 356 então
-    pety := 356
+    se teclado.TECLA_ESPAÇO então
+      velocidade := 15
+      pety := 355
+    fim
+    se pety < 356 então
+      pety := pety - velocidade
+      velocidade := velocidade - 1
+    fim
+    se pety > 356 então
+      pety := 356
+    fim
+    se pety > 320 e obstaculo.x > 70 e obstaculo.x < 100 então
+      vivo := falso
+    fim
   fim
 fim
-
 jogo.iniciar("Teste", 640, 480, atualize, desenhe)
