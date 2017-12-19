@@ -1,0 +1,58 @@
+use "jerimum"
+use "jerimum.Teclado"
+
+fundo = Imagem("fundo.png")
+pet = Imagem("y.png").fatie(68, 66)
+obs = Imagem("obstaculo.png")
+var i := 1
+
+var px := 0
+var index := 1
+var milis := Relógio.milisegundos
+var milis_c := Relógio.milisegundos
+var pety := 356
+var velocidade := 0
+
+
+desenhe()
+  pet[index].desenhe(50, pety, 2)
+  fundo.desenhe(0 - px, 0, 1)
+  fundo.desenhe(650 - px, 0, 1)
+  #OBSTACULO
+  obs.desenhe(640 - px, 356, 2)
+
+  #LOCOMOCAO PET INICIO
+  se Relógio.milisegundos > milis + 100 então
+    se index < pet.tamanho então
+      index := index + 1
+    senão
+      index := 1
+    fim
+    milis := Relógio.milisegundos
+  fim
+fim
+
+
+atualize()
+  se Relógio.milisegundos > milis_c + 20 então
+    se px > 650 então
+      px := 0
+    senão
+      px := px + 5
+    fim
+    milis_c := Relógio.milisegundos
+  fim
+  se teclado.TECLA_ESPAÇO então
+    velocidade := 15
+    pety := 355
+  fim
+  se pety < 356 então
+    pety := pety - velocidade
+    velocidade := velocidade - 1
+  fim
+  se pety > 356 então
+    pety := 356
+  fim
+fim
+
+jogo.iniciar("Teste", 640, 480, atualize, desenhe)
