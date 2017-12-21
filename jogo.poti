@@ -1,26 +1,26 @@
 use "jerimum"
 use "jerimum.Teclado"
 
-fundo = Imagem("fundo.png")
-pet = Imagem("y.png").fatie(68, 66)
-obs = Imagem("obstaculo.png")
-var i := 1
+fundo_img = Imagem ("fundo.png")
+pet = Imagem ("y.png").fatie(68, 66)
+obs = Imagem ("obstaculo.png")
+var i = 1
 
-var px := 0
-var index := 1
-var milis := Relógio.milisegundos
-var milis_c := Relógio.milisegundos
+var px = 0
+var index = 1
+var milis = Relógio.milisegundos
+var milis_c = Relógio.milisegundos
+
 var pety := 356
 var velocidade := 0
 var vivo := verdadeiro
 
 desenhe()
   pet[index].desenhe(50, pety, 2)
-  fundo.desenhe(0 - px, 0, 1)
-  fundo.desenhe(650 - px, 0, 1)
+  fundo_img.desenhe(0 - px, 0, 0)
+  fundo_img.desenhe(650 - px, 0, 0)
   #OBSTACULO
   obs.desenhe(640 - px, 356, 2)
-
   #LOCOMOCAO PET INICIO
   se Relógio.milisegundos > milis + 100 então
     se index < pet.tamanho então
@@ -53,9 +53,10 @@ atualize()
     se pety > 356 então
       pety := 356
     fim
-    se pety > 320 e obstaculo.x > 70 e obstaculo.x < 100 então
+    se pety > 320 e obs.x > 70 e obs.x < 100 então
       vivo := falso
     fim
   fim
 fim
+
 jogo.iniciar("Teste", 640, 480, atualize, desenhe)
