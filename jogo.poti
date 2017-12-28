@@ -20,6 +20,9 @@ desenhe()
   pet[img].desenhe(petx, pety, 2)
   fundo_img.desenhe(0 - px, 0, 0)
   fundo_img.desenhe(650 - px, 0, 0)
+  se gameover == verdadeiro então
+  morto.desenhe_centralizado (320, 240, 3)
+  fim
   #OBSTACULO
   obs.desenhe(0 - px, 0, 0)
   obs.desenhe(obs_px - px, 360, 2)
@@ -32,9 +35,6 @@ desenhe()
     fim
     milis := Relógio.milisegundos
   fim
-fim
-se gameover == verdadeiro então
-  morto.desenhe(600, 300, 3)
 fim
 
 atualize()
@@ -61,12 +61,11 @@ atualize()
     se petx > 50 então
       petx := 50
     fim
-    se gameover então
-     
-        gameover := verdadeiro
-      fim
+
+    se obs_px - px > 7 e obs_px - px < 12 e pety > 350 então
+      gameover := verdadeiro
     fim
   fim
-
+fim
 
 jogo.iniciar("Pet Jump", 640, 480, atualize, desenhe)
