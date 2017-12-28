@@ -1,50 +1,46 @@
 use "jerimum"
 use "jerimum.Teclado"
 
-fundo = Imagem("fundo.png")
-pet = Imagem("y.png").fatie(68, 66)
-obs = Imagem("obstaculo.png")
-var i := 1
+fundo_img = Imagem ("fundo.png")
+pet = Imagem ("y.png").fatie(68, 66)
+obs = Imagem ("obstaculo.png")
 
-var px := 0
-var obs_px:=800
-var index := 1
-var milis := Relógio.milisegundos
-var milis_c := Relógio.milisegundos
+var i = 1
+
+var px = 1
+var img = 1
+var milis = Relógio.milisegundos
+var milis_c = Relógio.milisegundos
+
 var pety := 356
 var velocidade := 0
-var vivo := verdadeiro
-
+var vivo = falso
+var obs_px = 0
 desenhe()
-  pet[index].desenhe(50, pety, 2)
-  fundo.desenhe(0 - px, 0, 1)
-  fundo.desenhe(650 - px, 0, 1)
+  pet[img].desenhe(50, pety, 2)
+  fundo_img.desenhe(0 -px, 0, 0)
+  fundo_img.desenhe(650-px, 0, 0)
   #OBSTACULO
-  obs.desenhe(640 - px, 356, 2)
-
+  obs.desenhe(0 -px, 0, 0)
+  obs.desenhe(500-px, 356, 2)
   #LOCOMOCAO PET INICIO
   se Relógio.milisegundos > milis + 100 então
-    se index < pet.tamanho então
-      index := index + 1
+    se img < pet.tamanho então
+     img := img + 1
     senão
-      index := 1
+     img := 1
     fim
     milis := Relógio.milisegundos
   fim
 fim
 
 atualize()
-  se vivo então
+  se não vivo então
     se Relógio.milisegundos > milis_c + 20 então
       se px > 650 então
         px := 0
       senão
         px := px + 5
-      fim
-       se obs_px < -50 então
-        obs_px := 800
-      senão
-        obs_px := obs_px -5
       fim
       milis_c := Relógio.milisegundos
     fim
@@ -59,11 +55,11 @@ atualize()
     se pety > 356 então
       pety := 356
     fim
-    se pety > 350 e obs_px > 70 e obs_px < 100 então
-      escreva "pety={pety} - obs_px={obs_px}"
-    fim
-      vivo := falso
+    se pety > 356 e obs_px > 50 e obs_px < 80 então
+      vivo := verdadeiro
+      escreva "morreu!"
     fim
   fim
 fim
+
 jogo.iniciar("Teste", 640, 480, atualize, desenhe)
