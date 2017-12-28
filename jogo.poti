@@ -1,5 +1,5 @@
 use "jerimum"
-use "jerimum.Teclado"
+
 
 fundo_img = Imagem ("fundo.png")
 pet = Imagem ("y.png").fatie(68, 66)
@@ -14,15 +14,16 @@ var milis_c = Relógio.milisegundos
 
 var pety := 356
 var velocidade := 0
-var vivo = falso
-var obs_px = 0
+var gameover = falso
+var obs_px = 500
+var morto = Imagem ("morto.png")
 desenhe()
   pet[img].desenhe(50, pety, 2)
   fundo_img.desenhe(0 -px, 0, 0)
   fundo_img.desenhe(650-px, 0, 0)
   #OBSTACULO
   obs.desenhe(0 -px, 0, 0)
-  obs.desenhe(500-px, 356, 2)
+  obs.desenhe(500-px, 360, 2)
   #LOCOMOCAO PET INICIO
   se Relógio.milisegundos > milis + 100 então
     se img < pet.tamanho então
@@ -33,9 +34,12 @@ desenhe()
     milis := Relógio.milisegundos
   fim
 fim
+se gameover == verdadeiro então
+  morto.desenhe(600, 300, 3)
+fim
 
 atualize()
-  se não vivo então
+  se não gameover então
     se Relógio.milisegundos > milis_c + 20 então
       se px > 650 então
         px := 0
@@ -55,11 +59,11 @@ atualize()
     se pety > 356 então
       pety := 356
     fim
-    se pety > 356 e obs_px > 50 e obs_px < 80 então
-      vivo := verdadeiro
-      escreva "morreu!"
+    se pety == 360  e obs_px == 50 então  
+   gameover := verdadeiro
+    fim
+
     fim
   fim
-fim
 
 jogo.iniciar("Teste", 640, 480, atualize, desenhe)
